@@ -1,0 +1,619 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package telas;
+import classes.Funcionario;
+import classes.BancoDeDados;
+import classes.Verificador;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author parac
+ */
+
+//Permite a criação, leitura, atualização e remoção de Funcionários em sincronia com o banco de dados
+public class CRUDFuncionarios extends javax.swing.JFrame {
+    
+    static BancoDeDados bancoDeDados;
+    private String modoAtual;
+    Verificador verificador;
+
+    //Estado atual do programa
+    private void modoPadrao(){
+        modoAtual = "padrao";
+        btnOk.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        btnAdicionar.setEnabled(true);
+        btnPesquisar.setEnabled(true);
+        btnEditar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        
+        txtNome.setEnabled(false);
+        txtEmail.setEnabled(false);
+        txtCpf.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtCep.setEnabled(false);
+        txtSalario.setEnabled(false);
+        txtComissao.setEnabled(false);
+        
+        txtNome.setText("");
+        txtEmail.setText("");
+        txtCpf.setText("");
+        txtTelefone.setText("");
+        txtCep.setText("");
+        txtSalario.setText("");
+        txtComissao.setText("");
+    }
+    
+    private void modoAdicionar(){
+        modoAtual = "adicionar";
+        btnOk.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        btnAdicionar.setEnabled(false);
+        btnPesquisar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        
+        txtNome.setEnabled(true);
+        txtEmail.setEnabled(true);
+        txtCpf.setEnabled(true);
+        txtTelefone.setEnabled(true);
+        txtCep.setEnabled(true);
+        txtSalario.setEnabled(true);
+        txtComissao.setEnabled(false);
+    }
+    
+    private void modoPesquisar(){
+        modoAtual = "pesquisar";
+        btnOk.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        btnAdicionar.setEnabled(false);
+        btnPesquisar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        
+        txtCpf.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtEmail.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtCep.setEnabled(false);
+        txtSalario.setEnabled(false);
+        txtComissao.setEnabled(false);
+    }
+    
+    private void modoEditar(){
+        modoAtual = "editar";
+        btnOk.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        btnAdicionar.setEnabled(false);
+        btnPesquisar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        
+        txtNome.setEnabled(false);
+        txtEmail.setEnabled(true);
+        txtCpf.setEnabled(false);
+        txtTelefone.setEnabled(true);
+        txtCep.setEnabled(true);
+        txtSalario.setEnabled(true);
+        txtComissao.setEnabled(false);
+    }
+    
+    private void modoExcluir(){
+        modoAtual = "excluir";
+        btnOk.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        btnAdicionar.setEnabled(false);
+        btnPesquisar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        
+        txtNome.setEnabled(false);
+        txtEmail.setEnabled(false);
+        txtCpf.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtCep.setEnabled(false);
+        txtSalario.setEnabled(false);
+        txtComissao.setEnabled(false);
+    }
+
+    /**
+     * Creates new form CRUDClientes
+     */
+    public CRUDFuncionarios() {
+        initComponents();
+        bancoDeDados = Inicial.bancoDeDados;
+        verificador = new Verificador();
+        modoPadrao();
+        atualizarTabela();
+    }
+
+    //Atualiza tabela de funcionários
+    private void atualizarTabela(){
+        Object[] campos = {"CPF", "Nome", "Email", "Telefone", "CEP", "Salário","Comissão"};
+        DefaultTableModel modelo = new DefaultTableModel(campos,0);
+        var funcionarios = bancoDeDados.getFuncionarios();
+        for(var f : funcionarios){
+            Object[] linha = {String.valueOf(f.getCpf()),f.getNome(),f.getEmail(),
+                String.format("%08d",f.getTelefone()), String.format("%08d",f.getCep()),
+                String.format("%.2f",f.getSalario()), String.format("%.2f",f.getComissao())};
+            modelo.addRow(linha);
+        }
+        tblFuncionarios.setModel(modelo);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        btnOk = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnAdicionar = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        lblPLaca = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtCpf = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JTextField();
+        txtCep = new javax.swing.JTextField();
+        txtSalario = new javax.swing.JTextField();
+        txtComissao = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblFuncionarios = new javax.swing.JTable();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Funcionários");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Funcionário", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+
+        btnOk.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        btnOk.setForeground(new java.awt.Color(0, 153, 0));
+        btnOk.setText("OK");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 51, 51));
+        btnCancelar.setText("X");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnAdicionar.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
+
+        btnPesquisar.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        lblPLaca.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblPLaca.setText("CPF:");
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setText("Nome:");
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel3.setText("Email:");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel4.setText("Telefone:");
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel5.setText("CEP:");
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel6.setText("Salário:");
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setText("Comissão:");
+
+        txtTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefoneActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(lblPLaca, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(btnAdicionar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPesquisar)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCancelar))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtComissao, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExcluir)))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPLaca)
+                    .addComponent(jLabel5)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtComissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOk)
+                    .addComponent(btnCancelar)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdicionar)
+                    .addComponent(btnPesquisar)
+                    .addComponent(btnEditar)
+                    .addComponent(btnExcluir))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        tblFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "CPF", "Nome", "Email", "Telefone", "CEP", "Salário", "Comissão"
+            }
+        ));
+        jScrollPane1.setViewportView(tblFuncionarios);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        modoAdicionar();
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        modoPesquisar();
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefoneActionPerformed
+    
+    private boolean adicionarFuncionario(String cpf, String nome, String email, String textoTelefone, String textoCep, String textoSalario, String textoComissao){
+        String erros = "\n";
+        if (!verificador.isCpf(cpf)){
+            erros = erros + "\nCPF deve conter 11 dígitos numéricos.";
+        }
+        if (!verificador.isNome(nome)){
+            erros = erros + "\nNome não pode ser vazio.";
+        }
+        if (!verificador.isEmail(email)){
+            erros = erros + "\nEmail inválido.";
+        }
+        if (!verificador.isTelefone(textoTelefone)){
+            erros = erros + "\nTelefone deve conter no mínimo 8 dígitos, todos numéricos.";
+        }
+        if (!verificador.isCep(textoCep)){
+            erros = erros + "\nCEP deve conter 8 dígitos numéricos.";
+        }
+        if (!verificador.isSalario(textoSalario)){
+            erros = erros + "\nSalário deve ser valor positivo com casa decimal.";
+        }
+        if (!erros.equals("\n")){
+            JOptionPane.showMessageDialog(null, "Erro no preenchimento:"+erros, "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        long telefone = Long.parseLong(textoTelefone);
+        long cep = Long.parseLong(textoCep);
+        double salario = Double.parseDouble(textoSalario.replace(",","."));
+        Funcionario funcionario = new Funcionario(salario,0.0,"1234",nome,email,cpf,telefone,cep);
+        bancoDeDados.adicionar(funcionario);
+        atualizarTabela();
+        JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso", "Concluído", JOptionPane.PLAIN_MESSAGE);
+        return true;
+    }
+    
+    private boolean mostrarFuncionario(String cpf){
+        Funcionario funcionario = null;
+        var funcionarios = bancoDeDados.getFuncionarios();
+        for(var f : funcionarios){
+            if(f.getCpf().equals(cpf)){
+                funcionario = f;
+            }
+        }
+        if (funcionario == null){
+            JOptionPane.showMessageDialog(null, "Funcionário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        else{
+            txtCpf.setText(funcionario.getCpf());
+            txtNome.setText(funcionario.getNome());
+            txtEmail.setText(funcionario.getEmail());
+            txtTelefone.setText(String.format("%08d",funcionario.getTelefone()));
+            txtCep.setText(String.format("%08d",funcionario.getCep()));
+            txtSalario.setText(String.format("%.2f",funcionario.getSalario()));
+            txtComissao.setText(String.format("%.2f",funcionario.getComissao()));
+            JOptionPane.showMessageDialog(null, "Funcionário pronto para edição/exclusão", "Concluído", JOptionPane.PLAIN_MESSAGE);
+            return true;
+        }
+    }
+    
+    private boolean editarFuncionario(String cpf, String email, String textoTelefone, String textoCep, String textoSalario){
+        String erros = "\n";
+        if (!verificador.isEmail(email)){
+            erros = erros + "\nEmail inválido.";
+        }
+        if (!verificador.isTelefone(textoTelefone)){
+            erros = erros + "\nTelefone deve conter no mínimo 8 dígitos, todos numéricos.";
+        }
+        if (!verificador.isCep(textoCep)){
+            erros = erros + "\nCEP deve conter 8 dígitos numéricos.";
+        }
+        if (!verificador.isSalario(textoSalario)){
+            erros = erros + "\nSalário deve ser valor positivo com casa decimal.";
+        }
+        if (!erros.equals("\n")){
+            JOptionPane.showMessageDialog(null, "Erro nos campos:"+erros, "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        long telefone = Long.parseLong(textoTelefone);
+        long cep = Long.parseLong(textoCep);
+        double salario = Double.parseDouble(textoSalario.replace(",","."));
+        var funcionarios = bancoDeDados.getFuncionarios();
+        for(var f : funcionarios){
+            if (f.getCpf().equals(cpf)){
+                f.setEmail(email);
+                f.setTelefone(telefone);
+                f.setCep(cep);
+                f.setSalario(salario);
+                bancoDeDados.editar(f);
+                break;
+            }
+        }
+        atualizarTabela();
+        JOptionPane.showMessageDialog(null, "Funcionário editado com sucesso", "Concluído", JOptionPane.PLAIN_MESSAGE);
+        return true;
+    }
+    
+    private void excluirFuncionario(String cpf){
+        Funcionario funcionario = null;
+        var funcionarios = bancoDeDados.getFuncionarios();
+        for(var f : funcionarios){
+            if (f.getCpf().equals(cpf)){
+                funcionario = f;
+            }
+        }
+        bancoDeDados.apagar(funcionario);
+        atualizarTabela();
+        JOptionPane.showMessageDialog(null, "Funcionário excluído permanentemente", "Concluído", JOptionPane.PLAIN_MESSAGE);
+    }
+
+
+    //Botão de confirmar ação, de acordo com o botão anterior
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        if (modoAtual.equals("adicionar")){
+            String cpf = txtCpf.getText();
+            String nome = txtNome.getText();
+            String email = txtEmail.getText();
+            String textoTelefone = txtTelefone.getText();
+            String textoCep = txtCep.getText();
+            String textoSalario = txtSalario.getText();
+            String textoComissao = txtComissao.getText();
+            if (adicionarFuncionario(cpf,nome,email,textoTelefone,textoCep,textoSalario,textoComissao)){
+                modoPadrao();
+            }
+        }
+        
+        else if (modoAtual.equals("pesquisar")){
+            String cpf = txtCpf.getText();
+            if (mostrarFuncionario(cpf)){
+                btnEditar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+            }
+        }
+        
+        else if (modoAtual.equals("editar")){
+            String cpf = txtCpf.getText();
+            String email = txtEmail.getText();
+            String textoTelefone = txtTelefone.getText();
+            String textoCep = txtCep.getText();
+            String textoSalario = txtSalario.getText();
+            if (editarFuncionario(cpf,email,textoTelefone,textoCep,textoSalario)){
+                modoPadrao();
+            }
+        }
+        
+        else if (modoAtual.equals("excluir")){
+            String cpf = txtCpf.getText();
+            excluirFuncionario(cpf);
+            modoPadrao();
+        }
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        modoPadrao();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        modoEditar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        modoExcluir();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(CRUDFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(CRUDFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(CRUDFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CRUDFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CRUDFuncionarios().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnOk;
+    private javax.swing.JButton btnPesquisar;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblPLaca;
+    private javax.swing.JTable tblFuncionarios;
+    private javax.swing.JTextField txtCep;
+    private javax.swing.JTextField txtComissao;
+    private javax.swing.JTextField txtCpf;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtSalario;
+    private javax.swing.JTextField txtTelefone;
+    // End of variables declaration//GEN-END:variables
+}
